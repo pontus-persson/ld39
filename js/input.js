@@ -13,7 +13,7 @@
         this.keysPressed = {};
         this.keys = {
             // other
-            'ctrl':17, 'enter':13, 'space':32, 'escape':27, '+':107, '-':109, 'insert':45, 'delete':46, 'home':36, 'end':35,
+            'shift':16, 'ctrl':17, 'enter':13, 'space':32, 'escape':27, '+':107, '-':109, 'insert':45, 'delete':46, 'home':36, 'end':35,
             // numbers
             '1':49, '2':50, '3':51, '4':52, '5':53, '6':54, '7':55, '8':56, '9':57, '0':58,
             // letters
@@ -44,6 +44,10 @@
         window.addEventListener('mouseup', this.mouseUp.bind(this));
         window.addEventListener('gamepadconnected', this.gamepadAdd.bind(this));
         window.addEventListener('gamepaddisconnected', this.gamepadRemove.bind(this));
+        // IE9, Chrome, Safari, Opera
+        window.addEventListener("mousewheel", this.mousewheelHandler.bind(this), false);
+        // Firefox
+        window.addEventListener("DOMMouseScroll", this.mousewheelHandler.bind(this), false);
     }
 
     /**
@@ -71,18 +75,17 @@
      * Mouse functions
      */
     Input.prototype.mouseMove = function(e) {
-        // console.log(this.mouse);
         this.lastmouse.setVec(this.mouse);
         this.mouse.set(e.pageX || e.clientX, e.pageY || e.clientY);
     }
 
     Input.prototype.mouseDown = function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         this.buttonsPressed[e.button] = true;
     }
 
     Input.prototype.mouseUp = function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         this.buttonsPressed[e.button] = false;
     }
 
@@ -152,6 +155,20 @@
         //         console.log("button pressed at index %d value %f", i, button.value);
         //     }
         // }
+    }
+
+    Input.prototype.mousewheelHandler = function(event) {
+        var e = window.event || event;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        // console.log(delta);
+        if (this.wheelCallback) {
+            this.wheelCallback(delta);
+        }
+        return false;
+    }
+
+    Input.prototype.setWheelCallback = function(callback) {
+        this.wheelCallback = callback;
     }
 
 }(ea));

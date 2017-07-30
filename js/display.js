@@ -9,6 +9,9 @@
         this.canvas = document.createElement('canvas');
         this.canvas.width = this.options.width;
         this.canvas.height = this.options.height;
+        this.canvas.oncontextmenu = function (e) {
+            e.preventDefault();
+        };
         this.ctx = this.canvas.getContext("2d");
         this.ctx.imageSmoothingEnabled = false;
         this.tiles = document.createElement("img");
@@ -33,8 +36,8 @@
                 return;
             }
             this.ctx.drawImage(this.tiles,
-                            block.tx*32+(active?32:0), block.ty*32, 32, 32,
-                            -32, -32, 64, 64);
+                               block.tx*32+(active?32:0), block.ty*32, 32, 32,
+                               -32, -32, 64, 64);
         }
         this.ctx.rotate(-block.rotation);
         this.ctx.translate(-64-32-x*64, -64-32-y*64);
@@ -56,8 +59,8 @@
 
     Display.prototype.drawImage = function(x, y, tx, ty) {
         this.ctx.drawImage(this.tiles,
-                            tx*32, ty*32, 32, 32,
-                            x, y, 64, 64);
+                           tx*32, ty*32, 32, 32,
+                           x, y, 64, 64);
     };
 
     Display.prototype.clear = function() {
@@ -65,6 +68,8 @@
         // this.ctx.fillStyle = 'rgba(255,255,255,1)';
         this.ctx.fillStyle = 'rgba(0,0,0,0.6)';
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.fillStyle = '#408d55';
+        this.ctx.fillRect(64, 64, 8*64, 8*64);
     }
 
     Display.prototype.drawText = function(string, x, y, c) {

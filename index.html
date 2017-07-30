@@ -18,8 +18,8 @@
     <div class="container">
         <div class="left">
             <h3>Menu</h3>
-            <p><button type="button">Restart</button></p>
-            <p><button type="button">Help</button></p>
+            <p><button type="button" id="restartButton">Restart level</button></p>
+            <p><button type="button" id="helpButton">Help</button></p>
         </div>
         <div id="gamearea">
         </div>
@@ -30,9 +30,25 @@
             </div>
         </div>
     </div>
-    <div class="modal">
-        <p>DO THIS</p>
-        <p>Made by etc</p>
+    <div id="modal">
+        <div id="inner">
+            <h3>HOW TO PLAY</h3>
+            <p>Some asshat at work left you a bunch of unfinished curcuit boards where they only soldered on the components.</p>
+            <p>It's now up to you to finish the curcuits, just remember to power all the components and reach the output before the power in the battery runs out! The starting point is in the top right and you have to exit in the bottom left.</p>
+            <p>Components can take power from all sides aswell as output power on all sides (but do not power adjacent components), but the paths you can move only takes power from one side and outputs to one other side, as represented by the arrows.</p>
+            <h3>MADE BY</h3>
+            <p>Made for the gamejam <a href="https://ldjam.com/">Ludum Dare</a> 39, in less than 48 hours.</p>
+            <p>By <a href="https://ldjam.com/users/khorm/">@khorm</a></p>
+            <textarea rows="14" cols="60" id="mapjson"></textarea>
+        </div>
+        <a class="close" id="closeButton">x</a>
+    </div>
+    <div id="youwon">
+        <div class="inner">
+            <h2>YOU WON!</h2>
+            <p>Congratulations, you finished all circuit boards and the boss is satisfied. You can go home and relax for the day.</p>
+            <h3>Thanks for playing.</h3>
+        </div>
     </div>
 </body>
 </html>
